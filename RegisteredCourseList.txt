@@ -1,0 +1,4 @@
+firstname1.lastname1@UCI.edu,USC_FALL_001,09/01/14,11/14/14,Java I,Intro. to Java,30,21
+firstname1.lastname1@UCI.edu,USC_FALL_002,09/15/14,11/21/14,Java II,Java Complete,30,22
+firstname2.lastname2@UCI.edu,USC_FALL_003,08/01/14,10/21/14,C++,Intro. to C++,30,23
+firstname2.lastname2@UCI.edu,USC_FALL_004,09/10/14,11/21/14,C Sharp,Intro. to CSharp,30,22
