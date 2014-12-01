@@ -115,6 +115,7 @@ public class Course{
 		//compare the difference between courseEnrollmentLimit and courseStudentsEnrolled
 		if ((courseEnrollmentLimit - courseStudentsEnrolled) > 0) {
 			return true;
+			
 		}else {
 			return false;
 		}
