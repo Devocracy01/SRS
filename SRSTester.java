@@ -194,7 +194,7 @@ public class SRSTester{
 	}
 	
 	public static void registerCourses(Student stu){
-		
+		System.out.println(stu.registerForCourse(stu.getUserID(),"USC_FALL_002"));
 	}
 	
 	public static void detailedCourseView(Student stu){

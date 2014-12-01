@@ -24,8 +24,8 @@ public class Student extends Person {
 		this.course = new Course(courseID);
 	}
 	
-	public void registerForCourse(){
-		
+	public boolean registerForCourse(String userID, String courseID){
+		return course.registerCourses(userID, courseID);
 	}
 	
 	public void unRegisterForCourse(){

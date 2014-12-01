@@ -22,6 +22,11 @@ public class Course{
 	List<Course> courselist = new ArrayList<Course>();
 	PrintWriter testFile;
 	String userID;
+	File registeredCourseListFile;
+	Scanner registeredCourseListScanner;
+	PrintWriter registeredCourseList;
+	List<Course> registeredcourselist = new ArrayList<Course>();
+	int numberOfCoursesForSameUser = 0;
 	
 	public Course(String courseID, String courseStartDate, String courseEndDate, String courseName, String courseSummary, int courseEnrollmentLimit, int courseStudentsEnrolled){
 		this.courseID = courseID;
@@ -112,12 +117,62 @@ public class Course{
 	}
 	
 	public boolean registerCourses(String userID, String courseID){
+		int courseCounter = 0;
 		//compare the difference between courseEnrollmentLimit and courseStudentsEnrolled
-		if ((courseEnrollmentLimit - courseStudentsEnrolled) > 0) {
+			try{
+				registeredCourseListFile = new File("RegisteredCourseList.txt");
+				//Instantiate a Scanner Object
+				registeredCourseListScanner = new Scanner(registeredCourseListFile);
+				while (registeredCourseListScanner.hasNextLine()){
+					//Uer split 
+					String[] registeredCourseAttributes = registeredCourseListScanner.nextLine().split(",");
+					String registeredUserID = registeredCourseAttributes[0];
+					String registeredCourseID = registeredCourseAttributes[1];
+					String registeredCourseStartDate = registeredCourseAttributes[2];
+					String registeredCourseEndDate = registeredCourseAttributes[3];
+					String registeredCourseName = registeredCourseAttributes[4];
+					String registeredCourseSummary = registeredCourseAttributes[5];
+					//System.out.println(courselist.get(courseCounter).getCourseEnrollmentLimit());
+					//System.out.println(courselist.get(courseCounter).getCourseStudentsEnrolled());
+					if (((courselist.get(courseCounter).getCourseEnrollmentLimit() - courselist.get(courseCounter).getCourseStudentsEnrolled()) > 0)){
+						//System.out.println("hmm more "+(courselist.get(courseCounter).getCourseEnrollmentLimit() - courselist.get(courseCounter).getCourseStudentsEnrolled()));
+						if ((registeredCourseID.equals(courseID)) && (registeredUserID.equals(userID))){
+							return false;
+						}else if (registeredUserID.equals(userID)){
+							numberOfCoursesForSameUser++;
+						}
+					}else{
+						return false;
+					}
+					courseCounter++;
+					//System.out.println(courselist.size()+"---"+numberOfCoursesForSameUser);
+				}
+				if (courselist.size() == numberOfCoursesForSameUser){
+					return false;
+				}else{
+					//register course
+					System.out.println("qualifies for registration");
+					
+					//add a line to RegisteredCourseList.txt
+					try{
+						
+						registeredCourseList = new PrintWriter(new FileWriter("RegisteredCourseList.txt",true));
+						registeredCourseList.println(userID+","+courseID+",");
+						registeredCourseList.close();
+					}catch (IOException e){
+						e.printStackTrace();
+					}
+					//update the last number for the course in courseList.txt
+					
+				
+				}
+				//Close the file
+				registeredCourseListScanner.close();
+			}catch (FileNotFoundException e){
+				e.printStackTrace();
+			}
+			
 			return true;
-		}else {
-			return false;
-		}
 	}
 	
 }
